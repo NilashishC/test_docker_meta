@@ -1,0 +1,30 @@
+---
+name: "CI"
+
+concurrency:
+    group: ${{ github.head_ref || github.run_id }}
+    cancel-in-progress: true
+
+on:  # yamllint disable-line rule:truthy
+  workflow_dispatch:
+  release:
+    types: [published]
+  schedule:
+    - cron: '* * * * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            name=ansible/community-ansible-dev-tools
+          labels: |
+            org.opencontainers.image.description=A community container image for Ansible Devtools.
+          tags: |
+            latest
+            type=schedule,pattern=latest
+            type=ref,event=tag
