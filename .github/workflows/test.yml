@@ -25,5 +25,5 @@ jobs:
           labels: |
             org.opencontainers.image.description=A community container image for Ansible Devtools.
           tags: |
-            latest
+            type=schedule
             type=ref,event=tag
