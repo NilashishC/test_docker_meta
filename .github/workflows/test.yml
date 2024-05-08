@@ -19,7 +19,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: test/name
-          tags:
-            type=raw,value=latest
+          flavor: |
+            latest=true
+          tags: |
             type=ref,event=tag
      
