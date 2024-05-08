@@ -14,12 +14,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Select image tag based on event
-        shell: bash
-        run: |
-          if [[ '${{ github.event_name }}' == 'release' ]]; then
-            echo "IMAGE_TAG=${{ github.ref_name }}" >> $GITHUB_ENV
-          else
-            echo "IMAGE_TAG=latest" >> $GITHUB_ENV
-          fi
+      - name: Docker meta
+        id: meta
+        if: ${{ inputs.publish == 'true' }}
+        uses: docker/metadata-action@v5
+        with:
+          images: test/name
+          tags:
+            type=ref,event=tag
      
