@@ -14,14 +14,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: |
-            name=ansible/community-ansible-dev-tools
-          labels: |
-            org.opencontainers.image.description=A community container image for Ansible Devtools.
-          tags: |
-            type=schedule,pattern=latest
-            type=ref,event=tag
+      - name: Select image tag based on event
+        shell: bash
+        run:
+          if [[ '${{ github.event_name }}' == 'release' ]]; then
+            echo "IMAGE_TAG=${{ github.ref_name }}" >> $GITHUB_ENV
+          else
+            echo "IMAGE_TAG=latest" >> $GITHUB_ENV
+          fi
+     
