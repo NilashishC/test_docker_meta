@@ -16,7 +16,6 @@ jobs:
     steps:
       - name: Docker meta
         id: meta
-        if: ${{ inputs.publish == 'true' }}
         uses: docker/metadata-action@v5
         with:
           images: test/name
