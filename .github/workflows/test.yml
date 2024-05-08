@@ -20,5 +20,6 @@ jobs:
         with:
           images: test/name
           tags:
+            type=raw,value=latest
             type=ref,event=tag
      
